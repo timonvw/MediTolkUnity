@@ -14,8 +14,10 @@ class _MyAppState extends State<MyApp> {
       GlobalKey<ScaffoldState>();
   UnityWidgetController _unityWidgetController;
   UnityWidgetController _unityWidgetMessageController;
+
   String unityMessage;
   dynamic handler;
+
   bool paused = false;
 
   @override
@@ -101,12 +103,5 @@ class _MyAppState extends State<MyApp> {
     this._unityWidgetMessageController = controller;
     this.handler = dynamic;
 
-    this.unityMessage = 'test';
-
-    //todo: remove debugging
-    print('____________________________________________________________________________________');
-    print(this._unityWidgetMessageController.toString());
-    print(this.handler.toString());
-    print('____________________________________________________________________________________');
-  }
+    this.unityMessage = '\$\$\$\$\$\$\$\$';
 }
