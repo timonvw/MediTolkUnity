@@ -81,6 +81,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   child: Text(
                     unityMessage,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF003366),
                     ),
@@ -103,6 +104,6 @@ class _MyAppState extends State<MyApp> {
     this._unityWidgetMessageController = controller;
     this.handler = dynamic;
 
-    this.unityMessage = '\$\$\$\$\$\$\$\$';
+    this.unityMessage = 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOO';
   }
 }
