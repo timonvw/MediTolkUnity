@@ -104,4 +104,5 @@ class _MyAppState extends State<MyApp> {
     this.handler = dynamic;
 
     this.unityMessage = '\$\$\$\$\$\$\$\$';
+  }
 }
