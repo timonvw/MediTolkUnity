@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -15,6 +17,7 @@ class _MyAppState extends State<MyApp> {
   UnityWidgetController _unityWidgetController;
   UnityWidgetController _unityWidgetMessageController;
   String unityMessage;
+  dynamic handler;
   bool paused = false;
 
   @override
@@ -98,6 +101,14 @@ class _MyAppState extends State<MyApp> {
   // Callback that handles the onUnityMessage Event
   void unityMessageCallback(controller, dynamic) {
     this._unityWidgetMessageController = controller;
+    this.handler = dynamic;
+
     this.unityMessage = 'test';
+
+    //todo: remove debugging
+    log('____________________________________________________________________________________');
+    log(this._unityWidgetMessageController.toString());
+    log(this.handler.toString());
+    log('____________________________________________________________________________________');
   }
 }
