@@ -1,5 +1,5 @@
-name: flutter_unity_widget_example
-description: Demonstrates how to use the flutter_unity_widget plugin.
+name: Flutter_3D_Model_Demo
+description: Testing with unity 3D models in flutter.
 publish_to: 'none'
 
 environment:
