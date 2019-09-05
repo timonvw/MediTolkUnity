@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -106,9 +104,9 @@ class _MyAppState extends State<MyApp> {
     this.unityMessage = 'test';
 
     //todo: remove debugging
-    log('____________________________________________________________________________________');
-    log(this._unityWidgetMessageController.toString());
-    log(this.handler.toString());
-    log('____________________________________________________________________________________');
+    print('____________________________________________________________________________________');
+    print(this._unityWidgetMessageController.toString());
+    print(this.handler.toString());
+    print('____________________________________________________________________________________');
   }
 }
