@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Unity Flutter Demo'),
+          title: const Text('Flutter 3D Model Demo'),
         ),
         body: Container(
             child: Stack(
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
                   }
                 },
                 color: Colors.blue[500],
-                child: Text(paused ? 'Start Game' : 'Pause Game'),
+                child: Text(paused ? 'Start' : 'Pauze'),
               ),
             ),
           ],
