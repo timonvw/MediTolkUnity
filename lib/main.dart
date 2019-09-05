@@ -32,7 +32,8 @@ class _MyAppState extends State<MyApp> {
             child: Stack(
           children: <Widget>[
             UnityWidget(
-              onUnityViewCreated: onUnityCreated,
+              onUnityViewCreated: unityViewCreatedCallback,
+              onUnityMessage: unityMessageCallback,
             ),
             Positioned(
               bottom: 40.0,
@@ -40,8 +41,7 @@ class _MyAppState extends State<MyApp> {
               right: 80.0,
               child: MaterialButton(
                 onPressed: () {
-
-                  if(paused) {
+                  if (paused) {
                     _unityWidgetController.resume();
                     setState(() {
                       paused = false;
@@ -64,7 +64,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   // Callback that connects the created controller to the unity controller
-  void onUnityCreated(controller) {
+  void unityViewCreatedCallback(controller) {
     this._unityWidgetController = controller;
+  }
+
+  // Callback that handles the onUnityMessage Event
+  void unityMessageCallback(controller, dynamic) {
+    //
   }
 }
