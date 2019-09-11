@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
+import 'package:flutter_liquidcore/liquidcore.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,13 +16,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   static final GlobalKey<ScaffoldState> _scaffoldKey =
       GlobalKey<ScaffoldState>();
-  UnityWidgetController _unityWidgetController;
-  UnityWidgetController _unityWidgetMessageController;
-
-  String unityMessage;
-  dynamic handler;
 
   bool paused = false;
+
+  //unity related properties
+  UnityWidgetController _unityWidgetController;
+  String unityMessage;
+
+  //nodejs related properties
+  MicroService _microService;
+  JSContext _jsContext;
+
+  String _jsContextResponse = '<empty>';
+  String _microServiceResponse = '<empty>';
+  int _microServiceWorld = 0;
 
   @override
   void initState() {
@@ -39,7 +50,6 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             UnityWidget(
               onUnityViewCreated: unityViewCreatedCallback,
-              onUnityMessage: unityMessageCallback,
             ),
             Positioned(
               bottom: 40.0,
@@ -97,13 +107,80 @@ class _MyAppState extends State<MyApp> {
   void unityViewCreatedCallback(controller) {
     this._unityWidgetController = controller;
     this.unityMessage = 'Unity on';
+    this.initMicroService();
   }
 
-  // Callback that handles the onUnityMessage Event
-  void unityMessageCallback(controller, dynamic) {
-    this._unityWidgetMessageController = controller;
-    this.handler = dynamic;
 
-    this.unityMessage = 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOO';
+
+
+  // *************************************************
+  // nodejs methods
+  // *************************************************
+  @override
+  void dispose() {
+    if (_microService != null) {
+      // Exit and free up the resources.
+      // _microService.exitProcess(0); // This API call might not always be available.
+      _microService.emit('exit');
+    }
+    if (_jsContext != null) {
+      // Free up the context resources.
+      _jsContext.cleanUp();
+    }
+    super.dispose();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  void initMicroService() async {
+    if (_microService == null) {
+      String uri;
+
+      // Android doesn't allow dashes in the res/raw directory.
+      uri =
+          "android.resource://io.jojodev.flutter.liquidcoreexample/raw/liquidcore_sample";
+//      uri = "@flutter_assets/Resources/server.js";
+      //uri = "https://raw.githubusercontent.com/j0j00/flutter_liquidcore/master/example/ios/Resources/liquidcore_sample.js";
+
+      _microService = new MicroService(uri);
+      await _microService.addEventListener('ready',
+          (service, event, eventPayload) {
+        // The service is ready.
+        if (!mounted) {
+          return;
+        }
+        //_emit();
+      });
+
+      await _microService.addEventListener('pong',
+          (service, event, eventPayload) {
+        if (!mounted) {
+          return;
+        }
+        _setMicroServiceResponse(eventPayload['message']);
+      });
+
+      // Start the service.
+      await _microService.start();
+    }
+
+    if (_microService.isStarted) {
+      _emit();
+    }
+  }
+
+  void _emit() async {
+    // Send the name over to the MicroService.
+//    await _microService.emit('ping', 'World ${++_microServiceWorld}');
+  }
+
+  void _setMicroServiceResponse(message) {
+    if (!mounted) {
+      print("microService: widget not mounted");
+      return;
+    }
+
+    setState(() {
+      _microServiceResponse = message;
+    });
   }
 }
