@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text('Flutter 3D Model Demo'),
+          title: const Text('Flutter 3D Demo'),
         ),
         body: Container(
             child: Stack(
