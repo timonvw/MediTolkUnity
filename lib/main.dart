@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
 
       // Android doesn't allow dashes in the res/raw directory.
       uri =
-          "android.resource://io.jojodev.flutter.liquidcoreexample/raw/liquidcore_sample";
+          "android.resource://Resource/server.js";
 //      uri = "@flutter_assets/Resources/server.js";
       //uri = "https://raw.githubusercontent.com/j0j00/flutter_liquidcore/master/example/ios/Resources/liquidcore_sample.js";
 
